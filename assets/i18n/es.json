@@ -1,0 +1,363 @@
+{
+  "anxeb": {
+    "common": {
+      "accept": "Aceptar",
+      "cancel": "Cancelar",
+      "close": "Cerrar",
+      "delete": "Eliminar",
+      "error": "Error",
+      "loading": "Cargando",
+      "months": {
+        "apr": "Abril",
+        "aug": "Agosto",
+        "dec": "Diciembre",
+        "feb": "Febrero",
+        "jan": "Enero",
+        "jul": "Julio",
+        "jun": "Junio",
+        "mar": "Marzo",
+        "may": "Mayo",
+        "nov": "Noviembre",
+        "oct": "Octubre",
+        "sep": "Septiembre"
+      },
+      "no": "No",
+      "retry": "Reintentar",
+      "scan": "Escanear",
+      "yes": "Si"
+    },
+    "device": {
+      "browse": {
+        "access_denied_message": "Debe permitir el acceso al sistema de archivos.\n\n¿Quieres habilitar el acceso?",
+        "access_denied_title": "Acceso al Disco Desactivado",
+        "loading_busy_label": "Cargando\nArchivo"
+      },
+      "camera": {
+        "flash_off_label": "Apagar Luz",
+        "flash_on_label": "Encender Luz"
+      },
+      "scan": {
+        "barcode_not_found": "No se encontró ningún código de barras en la imagen",
+        "barcode_scan_error": "Error procesando o descargando imagen"
+      }
+    },
+    "exceptions": {
+      "navigator_init": "Error iniciando navegador web"
+    },
+    "formats": {
+      "date_duration": "{date} hace {duration}",
+      "date_locale": "es_US",
+      "date_min": "d/M/y"
+    },
+    "helpers": {
+      "camera": {
+        "dialog": {
+          "take_photo": "Tomar\nFoto"
+        },
+        "empty_block": {
+          "no_camera": "Sin Cámara"
+        }
+      },
+      "document": {
+        "content": {
+          "error_loading_file": "Error cargando archivo",
+          "error_previewing_file": "Archivo no puede ser visualizado",
+          "refresh": "Refrescar"
+        },
+        "dialog": {
+          "delete_confirmation": "¿Estás seguro de que quieres eliminar este archivo?",
+          "downloading_file": "Descargando Archivo",
+          "error_launching_file": "Error abriendo archivo",
+          "new_title": "Título Nuevo",
+          "shared_file": "Archivo Compartido",
+          "title": "Título"
+        },
+        "menu": {
+          "change_title": "Cambiar Título",
+          "delete_file": "Eliminar Archivo",
+          "download_browser": "Descargar en Navegador",
+          "open_browser": "Abrir en Navegador",
+          "reload_file": "Recargar Archivo",
+          "share": "Compartir o Enviar"
+        },
+        "title": "Vista Archivo"
+      },
+      "scanner": {
+        "default_title": "Enfoque el Código"
+      }
+    },
+    "middleware": {
+      "api": {
+        "exception": {
+          "connect_timeout": "Error de comunicación, favor revisar su conexión a la red",
+          "internal_error": "Error interno",
+          "receive_timeout": "Tiempo de respuesta prolongado",
+          "send_timeout": "Tiempo de petición prolongado",
+          "socket_exception": "Error de comunicación, favor revisar su conexión al Internet",
+          "status_400": "Instrucción o llamada inválida",
+          "status_401": "Acceso al recurso denegado",
+          "status_402": "Pago requerido",
+          "status_403": "Acceso al recurso denegado",
+          "status_404": "Recurso no encontrado",
+          "status_405": "Instrucción o llamada inválida",
+          "status_408": "Tiempo de respuesta prolongado",
+          "status_500": "Error interno, recurso no encontrado en servidor",
+          "user_cancelled": "Conexión desestimada por usuario o administrador"
+        }
+      },
+      "dialog": {
+        "confirm": {
+          "title": "Confirmar Acción"
+        }
+      },
+      "helper": {
+        "delete_confirm": "¿Estás seguro de que quieres eliminar este registro?"
+      },
+      "printer": {
+        "bt_desabled_message": "Debes habilitar la función bluetooth del móvil.\n\n¿Quieres ir a la configuración?",
+        "bt_disabled_title": "Bluetooth Desactivado",
+        "bt_reset_dialog": {
+          "message": "Reinicia tu impresora e intenta otra vez, de lo contrario, puedes escanear un dispositivo nuevo para continuar.",
+          "title": "Impresora Sin Responder"
+        },
+        "connecting_busy_label": "Conectando\nImpresora",
+        "error_connecting": "Error conectando la impresora",
+        "error_scanning": "Error escaneando dispositivos",
+        "not_found": "IMPRESORA\nBLUETOOTH\nNO ENCONTRADA",
+        "printing_busy_label": "Imprimiendo\nDocumento",
+        "scan_dialog_title": "BUSCANDO\nIMPRESORA\nBLUETOOTH",
+        "select_dialog_title": "SELECCIONA UNA IMPRESORA\nDE LA LISTA"
+      },
+      "scope": {
+        "busy_timeout": "Tiempo de espera excedido",
+        "process_error": "Error de Proceso"
+      }
+    },
+    "parts": {
+      "dialogs": {
+        "period": {
+          "all_month": "Todos los Meses",
+          "to_string_prefix": "Período",
+          "year_prefix": "Año"
+        },
+        "referencer": {
+          "start_button": "Inicio"
+        }
+      },
+      "headers": {
+        "search": {
+          "hint_text": "Búsqueda"
+        }
+      }
+    },
+    "utils": {
+      "dialogs": {
+        "browse_document": "Buscar\nDocumento",
+        "browse_image": "Buscar\nImagen",
+        "use_camera": "Usar\nCámara"
+      },
+      "validators": {
+        "barcode": {
+          "default_error": "Código de barras inválido"
+        },
+        "cedula": {
+          "default_error": "Ingrese una cédula válida (solo números)"
+        },
+        "credit_card": {
+          "ccv_nnn_error": "Ingrese un código válido",
+          "ccv_nnnn_error": "Ingrese un código válido",
+          "default_error": "Ingrese un número de tarjeta válido",
+          "expired_date_error": "Fecha de tarjeta expirada",
+          "mmsyy_date_error": "Usar formato válido MM/AA",
+          "mmsyyyy_date_error": "Usar formato válido MM/AAAA",
+          "mmyy_date_error": "Usar formato válido MMAA"
+        },
+        "email": {
+          "default_error": "Correo requerido",
+          "invalid_error": "Ingrese un correo válido"
+        },
+        "first_names": {
+          "default_error": "Ingrese uno o dos nombres válidos"
+        },
+        "foreign": {
+          "default_error": "Ingrese una cédula extranjera (solo números)"
+        },
+        "identity": {
+          "default_error": "Ingrese un documento válido"
+        },
+        "last_names": {
+          "default_error": "Ingrese uno o dos apellidos válidos"
+        },
+        "passport": {
+          "default_error": "Ingrese un pasaporte válido"
+        },
+        "password": {
+          "default_error": "Contraseña requerida",
+          "length_error": "Ingrese una contraseña entre 5 y 16 caracteres",
+          "space_error": "Ingrese una contraseña sin espacios"
+        },
+        "phone": {
+          "default_error": "Ingrese un número telefónico válido (solo números)"
+        },
+        "pin": {
+          "default_error": "Debe ingresar 4 dígitos"
+        },
+        "pos_code": {
+          "length_error": "Ingrese un código mayor de 2 dígitos",
+          "starting_error": "Ingrese un código inciado en A,B,C o D: ej.: C004"
+        },
+        "required": {
+          "default_error": "Campo requirido",
+          "numeric_error": "Valor numérico requirido",
+          "some_percent_error": "Valor porcentual válido requerido"
+        }
+      }
+    },
+    "widgets": {
+      "components": {
+        "dialog_progress": {
+          "download_failed": "Error completando descarga de archivo",
+          "download_success": "Descarga completada exitosamente",
+          "init_label": "   Iniciando...",
+          "processing_label": "  Completando...",
+          "upload_failed": "Error completando carga de archivo",
+          "upload_success": "Carga completada exitosamente"
+        }
+      },
+      "fields": {
+        "file": {
+          "take_picture": "Tomar\nFoto"
+        },
+        "files": {
+          "take_picture": "Tomar\nFoto"
+        },
+        "image": {
+          "file_length_prefix": "Archivo de "
+        },
+        "text": {
+          "hide_label": "ocultar",
+          "show_label": "mostrar"
+        }
+      }
+    }
+  },
+  "common": {
+    "accept": "Aceptar",
+    "account": "Pasarela",
+    "activate": "Activar",
+    "active": "Activo",
+    "back": "Atrás",
+    "cancel": "Cancelar",
+    "cashier": "Cajero",
+    "clear_lookup": "Limpiar Búsqueda",
+    "close": "Cerrar",
+    "contact": "Contacto",
+    "continue": "Continuar",
+    "country": "País",
+    "customer": "Cliente",
+    "date": "Fecha",
+    "detail": "Detalle",
+    "edit": "Actualizar",
+    "empty_lookup": "Búsqueda sin resultados",
+    "exit_lookup": "Salir de Búsqueda",
+    "file": "Archivo",
+    "inactive": "Inacivo",
+    "location": "Localidad",
+    "ok": "OK",
+    "receipt": "Recibo",
+    "reference": "Referencia",
+    "refresh": "Refrescar",
+    "remove": "Eliminar",
+    "report": "Reporte",
+    "retry": "Reintentar",
+    "search": "Buscar",
+    "time": "Hora",
+    "transaction": "Transacción",
+    "user": "Usuario"
+  },
+  "middleware": {
+    "application": {
+      "change_language_title": "Cambiar Idioma"
+    },
+    "navigator": {
+      "home": "Inicio"
+    },
+    "session": {
+      "expired_error": "Tiempo de sesión expirado. Favor volver a ingresar",
+      "login": {
+        "confirmation": "Para continuar con esta acción debes registrar tu cuenta de usuario.\n\n¿Quieres iniciar sesión?",
+        "requirement": "Para continuar con esta acción debes registrar tu cuenta de usuario."
+      },
+      "logout": {
+        "confirmation": "¿Estás seguro de que quieres terminar la sesión?"
+      },
+      "registry_button": "Ir a Registro",
+      "remove": {
+        "buton_label": "Eliminar",
+        "confirmation": "¿Estás seguro de que quieres eliminar tu cuenta?",
+        "email_label": "Confirme su correo",
+        "invalid_email": "Correo no es el mismo de la cuenta",
+        "removing_busy_label": "Eliminando\nCuenta",
+        "success_message": "Su cuenta ha sido eliminada satisfactoriamente.\n\nǃEsperamos tenerlo de vuelta pronto!",
+        "success_title": "Cuenta de Usuario Eliminada",
+        "title": "Eliminar Cuenta Permanentemente"
+      },
+      "required_warning": "Debe estar registrado para configurar las opciones"
+    }
+  },
+  "screens": {
+    "landing": {
+      "about": {
+        "title": "Acerca de Nodrix",
+        "url_label": "www.nodrix.com",
+        "url_link": "https://nodrix.com",
+        "version": "versión {version} rev {rev}"
+      },
+      "lobby": {
+        "about_button": "Acerca",
+        "access_button": "Acceder",
+        "hello_button": "Hola {name}",
+        "language_button": "Idioma",
+        "login_button": "Iniciar"
+      }
+    }
+  },
+  "widgets": {
+    "sheets": {
+      "profile": {
+        "fields": {
+          "password": "Contraseña Actual",
+          "password_new": "Contraseña Nueva",
+          "password_rep": "Repetir Contraseña"
+        },
+        "password_rep_error": "Iguale a la contraseña nueva",
+        "submit_button": "Actualizar",
+        "title": "Cambiar Contraseña"
+      },
+      "recover": {
+        "fields": {
+          "email": "Correo"
+        },
+        "submit_button": "Generar Contraseña",
+        "success_dialog": {
+          "message": "Revisa tu correo y utiliza la nueva contraseña enviada.\n\nUna vez accedas a tu cuenta, actualiza tus credenciales con una nueva contraseña.",
+          "title": "Nuevo Acceso Enviado"
+        },
+        "title": "Recuperar Acceso"
+      },
+      "register": {
+        "fields": {
+          "email": "Correo",
+          "first_names": "Nombres",
+          "last_names": "Apellidos"
+        },
+        "submit_button": "Registrar",
+        "success_dialog": {
+          "error": "Registro fallido, por favor intentar nuevamente",
+          "title": "¡Registro Completado Exitosamente!"
+        },
+        "title": "Registro Usuario"
+      }
+    }
+  }
+}
