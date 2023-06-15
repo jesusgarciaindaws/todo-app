@@ -1,11 +1,11 @@
-import 'package:anxeb_flutter/anxeb.dart' as Anxeb;
+import 'package:anxeb_flutter/anxeb.dart' as anxeb;
 import 'auth.dart';
 
-class ConfigurationModel extends Anxeb.Model<ConfigurationModel> {
+class ConfigurationModel extends anxeb.Model<ConfigurationModel> {
   ConfigurationModel([data]) : super(data);
 
   ConfigurationModel.fromDisk(
-      [Anxeb.ModelLoadedCallback<ConfigurationModel> callback])
+      [anxeb.ModelLoadedCallback<ConfigurationModel> callback])
       : super.fromDisk('credentials', callback);
 
   @override
@@ -19,5 +19,5 @@ class ConfigurationModel extends Anxeb.Model<ConfigurationModel> {
 
   String language;
 
-  bool get isAuthSaved => auth?.member?.login?.email?.isNotEmpty == true;
+  bool get isAuthSaved => auth?.user?.login?.email?.isNotEmpty == true;
 }

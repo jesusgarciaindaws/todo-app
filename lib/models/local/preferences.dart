@@ -1,6 +1,6 @@
-import 'package:anxeb_flutter/anxeb.dart' as Anxeb;
+import 'package:anxeb_flutter/anxeb.dart' as anxeb;
 
-class PreferencesModel extends Anxeb.Model<PreferencesModel> {
+class PreferencesModel extends anxeb.Model<PreferencesModel> {
   PreferencesModel([data]) : super(data);
 
   @override

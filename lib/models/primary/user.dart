@@ -1,10 +1,10 @@
-import 'package:anxeb_flutter/anxeb.dart' as Anxeb;
-import 'package:todo_app/helpers/member.dart';
+import 'package:anxeb_flutter/anxeb.dart' as anxeb;
+import 'package:todo_app/helpers/user.dart';
 import 'package:todo_app/models/common/identity.dart';
 import 'package:todo_app/models/common/login.dart';
 
-class MemberModel extends Anxeb.HelpedModel<MemberModel, MemberHelper> {
-  MemberModel([data]) : super(data);
+class UserModel extends anxeb.HelpedModel<UserModel, UserHelper> {
+  UserModel([data]) : super(data);
 
   @override
   void init() {
@@ -19,7 +19,7 @@ class MemberModel extends Anxeb.HelpedModel<MemberModel, MemberHelper> {
   }
 
   @override
-  MemberHelper helper() => MemberHelper();
+  UserHelper helper() => UserHelper();
 
   @override
   String toString() => fullName;
@@ -36,7 +36,7 @@ class MemberModel extends Anxeb.HelpedModel<MemberModel, MemberHelper> {
   String get fullName => ('$firstNames $lastNames'.trim());
 
   String get lightName =>
-      Anxeb.Utils.convert.fromNamesToFullName(firstNames, lastNames);
+      anxeb.Utils.convert.fromNamesToFullName(firstNames, lastNames);
 
   bool filter(String lookup) =>
       lookup?.toUpperCase()?.split(' ')?.any(($key) => [fullName, login.email]
@@ -45,7 +45,7 @@ class MemberModel extends Anxeb.HelpedModel<MemberModel, MemberHelper> {
       true;
 }
 
-class UserInfoModel extends Anxeb.Model<UserInfoModel> {
+class UserInfoModel extends anxeb.Model<UserInfoModel> {
   UserInfoModel([data]) : super(data);
 
   @override

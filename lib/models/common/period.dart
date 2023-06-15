@@ -1,6 +1,6 @@
-import 'package:anxeb_flutter/anxeb.dart' as Anxeb;
+import 'package:anxeb_flutter/anxeb.dart' as anxeb;
 
-class PeriodModel extends Anxeb.Model<PeriodModel> {
+class PeriodModel extends anxeb.Model<PeriodModel> {
   PeriodModel([data]) : super(data);
 
   @override

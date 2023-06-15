@@ -1,11 +1,13 @@
-import 'package:anxeb_flutter/anxeb.dart' as Anxeb;
+// ignore_for_file: constant_identifier_names
+
+import 'package:anxeb_flutter/anxeb.dart' as anxeb;
 import 'package:flutter/material.dart';
 
-class ReferenceModel extends Anxeb.Model<ReferenceModel> {
+class ReferenceModel extends anxeb.Model<ReferenceModel> {
   ReferenceModel([data]) : super(data);
 
   static Future<T> lookupLeaf<T>({
-    Anxeb.Scope scope,
+    anxeb.Scope scope,
     ReferenceType type,
     IconData icon,
     String dialogTitle,
@@ -27,7 +29,7 @@ class ReferenceModel extends Anxeb.Model<ReferenceModel> {
   }
 
   static Future<List<T>> lookupBranch<T>({
-    Anxeb.Scope scope,
+    anxeb.Scope scope,
     ReferenceType type,
     IconData icon,
     String dialogTitle,
@@ -97,7 +99,7 @@ class ReferenceModel extends Anxeb.Model<ReferenceModel> {
             },
             itemWidget: ($page, $reference) {
               final isSelected = $page.isSelected($reference);
-              return Anxeb.ListTitleBlock(
+              return anxeb.ListTitleBlock(
                 scope: scope,
                 iconTrail: Icons.keyboard_arrow_right,
                 iconTrailScale: 0.4,

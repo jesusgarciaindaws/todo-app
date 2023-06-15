@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:anxeb_flutter/anxeb.dart' as Anxeb;
+import 'package:anxeb_flutter/anxeb.dart' as anxeb;
 import 'package:todo_app/screens/landing/about.dart';
 import 'package:todo_app/screens/general/profile.dart';
 import 'package:todo_app/middleware/application.dart';
@@ -9,7 +9,7 @@ import 'package:todo_app/services/task.dart';
 import 'package:todo_app/widgets/list/tasks.dart';
 import 'package:todo_app/widgets/providers/scope.dart';
 
-class HomeScreen extends Anxeb.ScreenWidget {
+class HomeScreen extends anxeb.ScreenWidget {
   HomeScreen({
     Key key,
   }) : super(
@@ -19,10 +19,10 @@ class HomeScreen extends Anxeb.ScreenWidget {
         );
 
   @override
-  _HomeState createState() => _HomeState();
+  anxeb.ScreenView<HomeScreen, Application> createState() => _HomeState();
 }
 
-class _HomeState extends Anxeb.ScreenView<HomeScreen, Application> {
+class _HomeState extends anxeb.ScreenView<HomeScreen, Application> {
   TaskService _taskService;
   List<TaskModel> _tasks = [];
   List<TaskModel> _tasksFiltered = [];
@@ -55,12 +55,12 @@ class _HomeState extends Anxeb.ScreenView<HomeScreen, Application> {
 
   @override
   Widget drawer() {
-    return Anxeb.ScreenNavigator(
+    return anxeb.ScreenNavigator(
       scope: scope,
       roles: () => session.roles != null
           ? session.roles.map((e) => e.toString().split('.')[1]).toList()
           : ['any'],
-      header: () => Anxeb.UserBlock(
+      header: () => anxeb.UserBlock(
         safeArea: true,
         background: const AssetImage('assets/images/common/admin-drawer.png'),
         imageUrl:
@@ -74,27 +74,27 @@ class _HomeState extends Anxeb.ScreenView<HomeScreen, Application> {
         },
       ),
       groups: () => [
-        Anxeb.MenuGroup(
+        anxeb.MenuGroup(
           caption: () => 'Inicio',
           key: 'home',
-          icon: Anxeb.FontAwesome.home,
+          icon: anxeb.FontAwesome.home,
           home: true,
         ),
-        Anxeb.MenuGroup(
+        anxeb.MenuGroup(
           caption: () => 'Mi Perfil',
           key: 'profile',
-          icon: Anxeb.FontAwesome5.user_cog,
+          icon: anxeb.FontAwesome5.user_cog,
           iconScale: 0.82,
           iconVOffset: 5,
           onTab: () async => push(ProfileScreen()),
         ),
-        Anxeb.MenuGroup(
+        anxeb.MenuGroup(
           caption: () => 'Acerca',
           key: 'about',
           icon: Icons.info,
           onTab: () async => push(AboutScreen()),
         ),
-        Anxeb.MenuGroup(
+        anxeb.MenuGroup(
           caption: () => 'Ir al Lobby',
           key: 'lobby',
           icon: Icons.stay_primary_landscape_sharp,
@@ -103,10 +103,10 @@ class _HomeState extends Anxeb.ScreenView<HomeScreen, Application> {
             application.exit(context);
           },
         ),
-        Anxeb.MenuGroup(
+        anxeb.MenuGroup(
           caption: () => 'Cerrar Sesión',
           key: 'logout',
-          icon: Anxeb.CommunityMaterialIcons.door_open,
+          icon: anxeb.CommunityMaterialIcons.door_open,
           iconVOffset: 2,
           onTab: () async {
             if (await scope.dialogs
@@ -114,7 +114,9 @@ class _HomeState extends Anxeb.ScreenView<HomeScreen, Application> {
                 .show()) {
               try {
                 await session.close();
-                application.exit(context);
+                if (context.mounted) {
+                  application.exit(context);
+                }
                 scope.rasterize();
               } catch (err) {
                 Future.delayed(const Duration(milliseconds: 200), () {
@@ -129,8 +131,8 @@ class _HomeState extends Anxeb.ScreenView<HomeScreen, Application> {
   }
 
   @override
-  Anxeb.ActionsHeader header() {
-    return Anxeb.SearchHeader(
+  anxeb.ActionsHeader header() {
+    return anxeb.SearchHeader(
         scope: scope,
         submitDelay: () => 150,
         onBegin: () async {},
@@ -140,8 +142,8 @@ class _HomeState extends Anxeb.ScreenView<HomeScreen, Application> {
   }
 
   @override
-  Anxeb.ScreenRefresher refresher() {
-    return Anxeb.ScreenRefresher(
+  anxeb.ScreenRefresher refresher() {
+    return anxeb.ScreenRefresher(
       scope: scope,
       action: () async => _refresh(),
       onError: (err) => scope.alerts.error(err).show(),
@@ -181,7 +183,7 @@ class _HomeState extends Anxeb.ScreenView<HomeScreen, Application> {
 
   Widget _getContentList(List<TaskModel> tasks) {
     if (tasks == null && _refreshing == true) {
-      return Anxeb.EmptyBlock(
+      return anxeb.EmptyBlock(
         scope: scope,
         message: 'Cargando tareas ...',
         icon: Icons.sync,
@@ -189,7 +191,7 @@ class _HomeState extends Anxeb.ScreenView<HomeScreen, Application> {
     }
 
     if (tasks == null) {
-      return Anxeb.EmptyBlock(
+      return anxeb.EmptyBlock(
         scope: scope,
         message: 'Error cargando tareas',
         icon: Icons.cloud_off,
@@ -199,7 +201,7 @@ class _HomeState extends Anxeb.ScreenView<HomeScreen, Application> {
     }
 
     if (tasks.isEmpty) {
-      return Anxeb.EmptyBlock(
+      return anxeb.EmptyBlock(
         scope: scope,
         message: 'No tiene tareas',
         icon: Icons.task_rounded,

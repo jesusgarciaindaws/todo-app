@@ -1,7 +1,7 @@
-import 'package:anxeb_flutter/anxeb.dart' as Anxeb;
+import 'package:anxeb_flutter/anxeb.dart' as anxeb;
 import 'package:todo_app/middleware/global.dart';
 
-class IdentityModel extends Anxeb.Model<IdentityModel> {
+class IdentityModel extends anxeb.Model<IdentityModel> {
   IdentityModel([data]) : super(data);
 
   @override

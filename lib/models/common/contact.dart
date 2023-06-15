@@ -1,6 +1,6 @@
-import 'package:anxeb_flutter/anxeb.dart' as Anxeb;
+import 'package:anxeb_flutter/anxeb.dart' as anxeb;
 
-class ContactModel extends Anxeb.Model<ContactModel> {
+class ContactModel extends anxeb.Model<ContactModel> {
   ContactModel([data]) : super(data);
 
   @override

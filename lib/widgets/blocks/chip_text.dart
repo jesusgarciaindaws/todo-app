@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ChipText extends StatelessWidget {
-  final text;
+  final String text;
   final Color chipColor;
   final TextStyle textStyle;
   final EdgeInsets padding;

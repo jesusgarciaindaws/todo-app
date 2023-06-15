@@ -1,7 +1,7 @@
-import 'package:anxeb_flutter/anxeb.dart' as Anxeb;
+import 'package:anxeb_flutter/anxeb.dart' as anxeb;
 import 'package:todo_app/helpers/task.dart';
 
-class TaskModel extends Anxeb.HelpedModel<TaskModel, TaskHelper> {
+class TaskModel extends anxeb.HelpedModel<TaskModel, TaskHelper> {
   TaskModel([data]) : super(data);
 
   @override

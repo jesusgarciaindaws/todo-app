@@ -1,11 +1,11 @@
-import 'package:anxeb_flutter/anxeb.dart' as Anxeb;
+import 'package:anxeb_flutter/anxeb.dart' as anxeb;
 import 'package:todo_app/models/references/city.dart';
 import 'package:todo_app/models/references/country.dart';
 import 'package:todo_app/models/references/state.dart';
 import 'package:flutter/material.dart';
 import '../primary/reference.dart';
 
-class LocationModel extends Anxeb.Model<LocationModel> {
+class LocationModel extends anxeb.Model<LocationModel> {
   LocationModel([data]) : super(data);
 
   @override
@@ -33,7 +33,7 @@ class LocationModel extends Anxeb.Model<LocationModel> {
   }
 
   static Future<LocationModel> lookup(
-      {Anxeb.Scope scope,
+      {anxeb.Scope scope,
       IconData icon,
       String title,
       ReferenceType leaf,

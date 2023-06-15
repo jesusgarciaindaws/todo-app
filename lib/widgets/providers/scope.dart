@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:anxeb_flutter/middleware/scope.dart';
 
 class ScopeProvider extends InheritedWidget {

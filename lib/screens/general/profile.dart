@@ -1,22 +1,22 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:anxeb_flutter/anxeb.dart' as Anxeb;
+import 'package:anxeb_flutter/anxeb.dart' as anxeb;
 import 'package:todo_app/middleware/global.dart';
 import 'package:todo_app/middleware/session.dart';
 import 'package:todo_app/middleware/application.dart';
 import 'package:todo_app/models/common/login.dart';
 import 'package:todo_app/widgets/blocks/title.dart';
 
-class ProfileScreen extends Anxeb.ScreenWidget {
+class ProfileScreen extends anxeb.ScreenWidget {
   ProfileScreen({Key key})
       : super('profile', title: 'Perfil de Usuario', key: key);
 
   @override
-  _ProfileState createState() => _ProfileState();
+  anxeb.ScreenView<ProfileScreen, Application> createState() => _ProfileState();
 }
 
-class _ProfileState extends Anxeb.ScreenView<ProfileScreen, Application> {
+class _ProfileState extends anxeb.ScreenView<ProfileScreen, Application> {
   ScrollController _scrollerController;
 
   @override
@@ -35,18 +35,18 @@ class _ProfileState extends Anxeb.ScreenView<ProfileScreen, Application> {
   dynamic drawer() => true;
 
   @override
-  Anxeb.ActionsHeader header() {
-    return Anxeb.ActionsHeader(
+  anxeb.ActionsHeader header() {
+    return anxeb.ActionsHeader(
       scope: scope,
     );
   }
 
   @override
-  Anxeb.ScreenTabs tabs() {
-    return Anxeb.ScreenTabs(
+  anxeb.ScreenTabs tabs() {
+    return anxeb.ScreenTabs(
       scope: scope,
       items: [
-        Anxeb.TabItem(
+        anxeb.TabItem(
           caption: () => 'Identidad',
           name: 'identity',
           body: () => Container(
@@ -77,80 +77,77 @@ class _ProfileState extends Anxeb.ScreenView<ProfileScreen, Application> {
             ),
           ),
         ),
-        Anxeb.TabItem(
+        anxeb.TabItem(
           caption: () => 'Seguridad',
           name: 'security',
           body: () => Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Expanded(
-                child: Anxeb.ScrollableContainer(
+                child: anxeb.ScrollableContainer(
                   scope: scope,
                   controller: _scrollerController,
                   fadding: Global.faddings.base,
-                  child: Container(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.only(top: 18.0, bottom: 2),
-                            child: Icon(
-                              Icons.lock,
-                              color: settings.colors.primary,
-                              size: 96,
-                            ),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 18.0, bottom: 2),
+                          child: Icon(
+                            Icons.lock,
+                            color: settings.colors.primary,
+                            size: 96,
                           ),
                         ),
-                        Anxeb.TextInputField(
-                          scope: scope,
-                          name: 'email',
-                          group: 'security',
-                          readonly: session.user.login.provider !=
-                              LoginProvider.email,
-                          margin: const EdgeInsets.only(top: 20),
-                          icon: Anxeb.FontAwesome5.envelope,
-                          label: 'Correo',
-                          type: Anxeb.TextInputFieldType.email,
-                          validator: Anxeb.Utils.validators.email,
-                          refocus: false,
-                          action: TextInputAction.next,
-                        ),
-                        Anxeb.TextInputField(
-                          scope: scope,
-                          name: 'password_new',
-                          group: 'security',
-                          margin: const EdgeInsets.only(top: 20),
-                          icon: Anxeb.FontAwesome.key,
-                          label: 'Contraseña Nueva',
-                          type: Anxeb.TextInputFieldType.password,
-                          action: TextInputAction.next,
-                        ),
-                        Anxeb.TextInputField(
-                          scope: scope,
-                          name: 'password_rep',
-                          group: 'security',
-                          margin: const EdgeInsets.only(top: 20),
-                          icon: Anxeb.FontAwesome.key,
-                          label: 'Repetir Contraseña',
-                          type: Anxeb.TextInputFieldType.password,
-                          validator: (val) {
-                            if (val !=
-                                scope.forms['security'].fields['password_new']
-                                    .value) {
-                              return 'Iguale a la contraseña nueva';
-                            } else {
-                              return null;
-                            }
-                          },
-                          action: TextInputAction.done,
-                          refocus: false,
-                          onActionSubmit: (val) =>
-                              _scrollDown(_scrollerController),
-                        ),
-                      ],
-                    ),
+                      ),
+                      anxeb.TextInputField(
+                        scope: scope,
+                        name: 'email',
+                        group: 'security',
+                        readonly:
+                            session.user.login.provider != LoginProvider.email,
+                        margin: const EdgeInsets.only(top: 20),
+                        icon: anxeb.FontAwesome5.envelope,
+                        label: 'Correo',
+                        type: anxeb.TextInputFieldType.email,
+                        validator: anxeb.Utils.validators.email,
+                        refocus: false,
+                        action: TextInputAction.next,
+                      ),
+                      anxeb.TextInputField(
+                        scope: scope,
+                        name: 'password_new',
+                        group: 'security',
+                        margin: const EdgeInsets.only(top: 20),
+                        icon: anxeb.FontAwesome.key,
+                        label: 'Contraseña Nueva',
+                        type: anxeb.TextInputFieldType.password,
+                        action: TextInputAction.next,
+                      ),
+                      anxeb.TextInputField(
+                        scope: scope,
+                        name: 'password_rep',
+                        group: 'security',
+                        margin: const EdgeInsets.only(top: 20),
+                        icon: anxeb.FontAwesome.key,
+                        label: 'Repetir Contraseña',
+                        type: anxeb.TextInputFieldType.password,
+                        validator: (val) {
+                          if (val !=
+                              scope.forms['security'].fields['password_new']
+                                  .value) {
+                            return 'Iguale a la contraseña nueva';
+                          } else {
+                            return null;
+                          }
+                        },
+                        action: TextInputAction.done,
+                        refocus: false,
+                        onActionSubmit: (val) =>
+                            _scrollDown(_scrollerController),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -162,18 +159,18 @@ class _ProfileState extends Anxeb.ScreenView<ProfileScreen, Application> {
   }
 
   @override
-  Anxeb.ActionsFooter footer() {
-    return Anxeb.ActionsFooter(
+  anxeb.ActionsFooter footer() {
+    return anxeb.ActionsFooter(
       scope: scope,
-      actions: <Anxeb.ActionIcon>[
-        Anxeb.ActionIcon(
+      actions: <anxeb.ActionIcon>[
+        anxeb.ActionIcon(
           icon: () => Icons.refresh,
           onPressed: () => _refresh(refreshSession: true),
         ),
-        Anxeb.ActionIcon(
-          icon: () => Anxeb.CommunityMaterialIcons.qrcode,
+        anxeb.ActionIcon(
+          icon: () => anxeb.CommunityMaterialIcons.qrcode,
           onPressed: () {
-            session.user.using(scope, reset: true).showQR();
+            session.user.using(scope).showQR();
           },
         ),
       ],
@@ -181,8 +178,8 @@ class _ProfileState extends Anxeb.ScreenView<ProfileScreen, Application> {
   }
 
   @override
-  Anxeb.ScreenAction action() {
-    return Anxeb.ScreenAction(
+  anxeb.ScreenAction action() {
+    return anxeb.ScreenAction(
       scope: scope,
       onPressed: () {
         _update();
@@ -200,20 +197,20 @@ class _ProfileState extends Anxeb.ScreenView<ProfileScreen, Application> {
       margin: const EdgeInsets.only(left: 6, right: 6, bottom: 20),
       child: Column(
         children: <Widget>[
-          Anxeb.PropertyBlock(
+          anxeb.PropertyBlock(
             margin: const EdgeInsets.only(top: 16),
-            icon: Anxeb.CommunityMaterialIcons.badge_account,
+            icon: anxeb.CommunityMaterialIcons.badge_account,
             label: 'Nombre de Usuario',
             value: $user.fullName,
           ),
-          Anxeb.PropertyBlock(
+          anxeb.PropertyBlock(
             margin: const EdgeInsets.only(top: 16),
             icon: Icons.email,
             label: 'Correo',
             isEmail: true,
             value: session.user?.login?.email,
           ),
-          Anxeb.PropertyBlock(
+          anxeb.PropertyBlock(
             margin: const EdgeInsets.only(top: 16),
             icon: Icons.fingerprint,
             label: Global.captions.identityCaption($user?.identity?.type),
@@ -239,9 +236,9 @@ class _ProfileState extends Anxeb.ScreenView<ProfileScreen, Application> {
               .prompt(
                 'Contraseña actual',
                 hint: 'Contraseña',
-                type: Anxeb.TextInputFieldType.password,
+                type: anxeb.TextInputFieldType.password,
                 value: '',
-                icon: Anxeb.FontAwesome.key,
+                icon: anxeb.FontAwesome.key,
               )
               .show();
 
@@ -254,7 +251,7 @@ class _ProfileState extends Anxeb.ScreenView<ProfileScreen, Application> {
             return;
           }
         } else {
-          Anxeb.AuthResultModel auth;
+          anxeb.AuthResultModel auth;
           if (session.user.login.provider == LoginProvider.google) {
             auth = await _socialAuth(scope.auths.google);
           } else if (session.user.login.provider == LoginProvider.facebook) {
@@ -326,14 +323,14 @@ class _ProfileState extends Anxeb.ScreenView<ProfileScreen, Application> {
 
   void _changePhoto() async {
     scope.unfocus();
-    final result = await Anxeb.Device.photo(
+    final result = await anxeb.Device.photo(
       scope: scope,
       title: 'Foto Perfil',
       initFaceCamera: true,
       allowMainCamera: true,
       flash: false,
       fullImage: false,
-      option: Anxeb.FileSourceOption.prompt,
+      option: anxeb.FileSourceOption.prompt,
     );
 
     if (result != null) {
@@ -353,7 +350,7 @@ class _ProfileState extends Anxeb.ScreenView<ProfileScreen, Application> {
     }
   }
 
-  Future<Anxeb.AuthResultModel> _socialAuth(Anxeb.AuthProvider provider) async {
+  Future<anxeb.AuthResultModel> _socialAuth(anxeb.AuthProvider provider) async {
     await scope.busy(timeout: -1);
     await provider.logout();
     try {

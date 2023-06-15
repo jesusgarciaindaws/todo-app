@@ -1,6 +1,6 @@
-import 'package:anxeb_flutter/anxeb.dart' as Anxeb;
+import 'package:anxeb_flutter/anxeb.dart' as anxeb;
 
-class LoginModel extends Anxeb.Model<LoginModel> {
+class LoginModel extends anxeb.Model<LoginModel> {
   LoginModel([data]) : super(data);
 
   @override
@@ -23,7 +23,7 @@ class LoginModel extends Anxeb.Model<LoginModel> {
       (v) => date = v,
       'date',
       instance: (data) =>
-          data != null ? Anxeb.Utils.convert.fromTickToDate(data) : null,
+          data != null ? anxeb.Utils.convert.fromTickToDate(data) : null,
     );
   }
 

@@ -1,6 +1,6 @@
-import 'package:anxeb_flutter/anxeb.dart' as Anxeb;
+import 'package:anxeb_flutter/anxeb.dart' as anxeb;
 
-class CredentialsModel extends Anxeb.Model<CredentialsModel> {
+class CredentialsModel extends anxeb.Model<CredentialsModel> {
   CredentialsModel([data]) : super(data);
 
   @override

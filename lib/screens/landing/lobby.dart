@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:anxeb_flutter/anxeb.dart' as Anxeb;
+import 'package:anxeb_flutter/anxeb.dart' as anxeb;
 import 'package:todo_app/screens/landing/about.dart';
 import 'package:todo_app/screens/landing/login.dart';
 import 'package:todo_app/middleware/application.dart';
 import 'package:todo_app/middleware/global.dart';
 import 'package:todo_app/screens/general/home.dart';
 
-class LobbyScreen extends Anxeb.ScreenWidget {
+class LobbyScreen extends anxeb.ScreenWidget {
   LobbyScreen({
     Key key,
-    Anxeb.Application application,
+    anxeb.Application application,
   }) : super(
           'lobby',
           application: application,
@@ -18,10 +18,10 @@ class LobbyScreen extends Anxeb.ScreenWidget {
         );
 
   @override
-  _LobbyState createState() => _LobbyState();
+  anxeb.ScreenView<LobbyScreen, Application> createState() => _LobbyState();
 }
 
-class _LobbyState extends Anxeb.ScreenView<LobbyScreen, Application> {
+class _LobbyState extends anxeb.ScreenView<LobbyScreen, Application> {
   bool _enableForeground;
 
   final ImageProvider _vignetteImage = const AssetImage(
@@ -31,31 +31,26 @@ class _LobbyState extends Anxeb.ScreenView<LobbyScreen, Application> {
     'assets/images/brand/full-brand.png',
   );
 
-  final List<Anxeb.Slide> _slides = [
-    Anxeb.Slide(
+  final List<anxeb.Slide> _slides = [
+    anxeb.Slide(
       image: const AssetImage('assets/images/landing/slide-2.jpeg'),
       pushFrom: const Offset(0.0, 0.0),
       pushTo: const Offset(0.0, 0.0),
       scale: -1.37,
     ),
-    Anxeb.Slide(
+    anxeb.Slide(
       image: const AssetImage('assets/images/landing/slide-3.jpeg'),
       pushFrom: const Offset(0.0, 0.0),
       pushTo: const Offset(0.0, 0.0),
       scale: -1.37,
     ),
-    Anxeb.Slide(
+    anxeb.Slide(
       image: const AssetImage('assets/images/landing/slide-4.jpeg'),
       pushFrom: const Offset(0.0, 0.0),
       pushTo: const Offset(0.0, 0.0),
       scale: -1.37,
     ),
   ];
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void setup() async {
@@ -99,18 +94,16 @@ class _LobbyState extends Anxeb.ScreenView<LobbyScreen, Application> {
         AnimatedOpacity(
           duration: const Duration(milliseconds: 300),
           opacity: application.loaded ? 0 : 1,
-          child: Container(
-            child: const Center(
-              child: CircularProgressIndicator(),
-            ),
+          child: const Center(
+            child: CircularProgressIndicator(),
           ),
         ),
         AnimatedOpacity(
           duration: const Duration(milliseconds: 500),
           opacity: application.loaded ? 1 : 0,
-          child: Anxeb.SliderContainer(
+          child: anxeb.SliderContainer(
             slides: _slides,
-            options: Anxeb.SliderOptions(
+            options: anxeb.SliderOptions(
               fadeinDuration: const Duration(milliseconds: 1300),
               fadeoutDuration: const Duration(milliseconds: 800),
               transformDuration: const Duration(milliseconds: 7000),
@@ -129,19 +122,17 @@ class _LobbyState extends Anxeb.ScreenView<LobbyScreen, Application> {
                         child: AnimatedOpacity(
                           duration: const Duration(milliseconds: 300),
                           opacity: _enableForeground == true ? 1 : 0,
-                          child: Container(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: <Widget>[
-                                Container(
-                                  padding: const EdgeInsets.only(top: 30),
-                                  constraints: const BoxConstraints(
-                                    maxWidth: 380.0,
-                                  ),
-                                  child: Image(image: _iconImage),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              Container(
+                                padding: const EdgeInsets.only(top: 30),
+                                constraints: const BoxConstraints(
+                                  maxWidth: 380.0,
                                 ),
-                              ],
-                            ),
+                                child: Image(image: _iconImage),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -200,7 +191,7 @@ class _LobbyState extends Anxeb.ScreenView<LobbyScreen, Application> {
           .show();
     }
 
-    push(HomeScreen(), action: Anxeb.ScreenPushAction.replace);
+    push(HomeScreen(), action: anxeb.ScreenPushAction.replace);
   }
 
   Widget _getSigninButtons() {
@@ -212,56 +203,49 @@ class _LobbyState extends Anxeb.ScreenView<LobbyScreen, Application> {
           padding: const EdgeInsets.only(bottom: 15),
           child: Column(
             children: [
-              Container(
-                child: Anxeb.TextButton(
-                  caption: Anxeb.translate('screens.landing.lobby.access_button'),
-                  radius: scope.application.settings.dialogs.buttonRadius,
-                  color: scope.application.settings.colors.primary,
-                  margin: const EdgeInsets.only(bottom: 20),
-                  textColor: Colors.white,
-                  type: Anxeb.ButtonType.primary,
-                  shadow: Global.shadows.button,
-                  size: Anxeb.ButtonSize.normal,
-                  icon: Anxeb.CommunityMaterialIcons.door_open,
-                  onPressed: () async {
-                    push(LoginScreen());
-                  },
-                ),
+              anxeb.TextButton(
+                caption: anxeb.translate('screens.landing.lobby.access_button'),
+                radius: scope.application.settings.dialogs.buttonRadius,
+                color: scope.application.settings.colors.primary,
+                margin: const EdgeInsets.only(bottom: 20),
+                textColor: Colors.white,
+                type: anxeb.ButtonType.primary,
+                shadow: Global.shadows.button,
+                size: anxeb.ButtonSize.normal,
+                icon: anxeb.CommunityMaterialIcons.door_open,
+                onPressed: () async {
+                  push(LoginScreen());
+                },
               ),
-              Container(
-                child: Anxeb.TextButton(
-                  caption:
-                      Anxeb.translate('screens.landing.lobby.about_button'),
-                  radius: scope.application.settings.dialogs.buttonRadius,
-                  color: scope.application.settings.colors.secudary,
-                  margin: const EdgeInsets.only(bottom: 20),
-                  textColor: Colors.black,
-                  type: Anxeb.ButtonType.secundary,
-                  shadow: Global.shadows.button,
-                  size: Anxeb.ButtonSize.small,
-                  icon: Icons.info,
-                  iconColor: Colors.black,
-                  onPressed: () async {
-                    push(AboutScreen());
-                  },
-                ),
+              anxeb.TextButton(
+                caption: anxeb.translate('screens.landing.lobby.about_button'),
+                radius: scope.application.settings.dialogs.buttonRadius,
+                color: scope.application.settings.colors.secudary,
+                margin: const EdgeInsets.only(bottom: 20),
+                textColor: Colors.black,
+                type: anxeb.ButtonType.secundary,
+                shadow: Global.shadows.button,
+                size: anxeb.ButtonSize.small,
+                icon: Icons.info,
+                iconColor: Colors.black,
+                onPressed: () async {
+                  push(AboutScreen());
+                },
               ),
-              Container(
-                child: Anxeb.TextButton(
-                  caption:
-                      Anxeb.translate('screens.landing.lobby.language_button'),
-                  radius: scope.application.settings.dialogs.buttonRadius,
-                  color: scope.application.settings.colors.secudary,
-                  textColor: Colors.black,
-                  type: Anxeb.ButtonType.secundary,
-                  shadow: Global.shadows.button,
-                  size: Anxeb.ButtonSize.small,
-                  icon: Icons.language,
-                  iconColor: Colors.black,
-                  onPressed: () async {
-                    application.changeLanguage(scope);
-                  },
-                ),
+              anxeb.TextButton(
+                caption:
+                    anxeb.translate('screens.landing.lobby.language_button'),
+                radius: scope.application.settings.dialogs.buttonRadius,
+                color: scope.application.settings.colors.secudary,
+                textColor: Colors.black,
+                type: anxeb.ButtonType.secundary,
+                shadow: Global.shadows.button,
+                size: anxeb.ButtonSize.small,
+                icon: Icons.language,
+                iconColor: Colors.black,
+                onPressed: () async {
+                  application.changeLanguage(scope);
+                },
               )
             ],
           ),
@@ -277,19 +261,19 @@ class _LobbyState extends Anxeb.ScreenView<LobbyScreen, Application> {
       children: <Widget>[
         Container(
           padding: const EdgeInsets.only(top: 25),
-          child: Anxeb.TextButton(
-            caption: 'Hola ${application.configuration.auth.member.lightName}',
+          child: anxeb.TextButton(
+            caption: 'Hola ${application.configuration.auth.user.lightName}',
             subtitle: 'Ingresar',
             radius: scope.application.settings.dialogs.buttonRadius,
             color: settings.colors.navigation.withOpacity(0.8),
             shadow: Global.shadows.button,
-            size: Anxeb.ButtonSize.medium,
+            size: anxeb.ButtonSize.medium,
             onPressed: _renewSession,
           ),
         ),
         Container(
           padding: const EdgeInsets.only(top: 15),
-          child: Anxeb.TextButton(
+          child: anxeb.TextButton(
             caption: 'Cerrar Sesión',
             radius: scope.application.settings.dialogs.buttonRadius,
             color: Colors.white.withOpacity(0.5),

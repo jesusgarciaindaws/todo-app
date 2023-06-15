@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:anxeb_flutter/anxeb.dart' as Anxeb;
+import 'package:anxeb_flutter/anxeb.dart' as anxeb;
 import 'package:todo_app/middleware/application.dart';
 import 'package:todo_app/models/local/credentials.dart';
 import 'package:todo_app/models/local/auth.dart';
-import 'package:todo_app/models/primary/member.dart';
+import 'package:todo_app/models/primary/user.dart';
 
 class Session {
   Application _application;
@@ -18,10 +18,9 @@ class Session {
   }
 
   Future<SessionAuth> open({CredentialsModel credentials}) async {
-    Anxeb.Data data;
+    anxeb.Data data;
     if (credentials != null) {
-      data = await application.api
-          .post('/auth/user?type=email', credentials.toObjects());
+      data = await application.api.post('/auth/user', credentials.toObjects());
     }
 
     if (data == null) {
@@ -31,15 +30,15 @@ class Session {
     }
   }
 
-  Future<SessionAuth> refresh({Anxeb.Scope scope}) async {
+  Future<SessionAuth> refresh({anxeb.Scope scope}) async {
     return renew(scope: scope);
   }
 
-  Future<SessionAuth> renew({Anxeb.Scope scope}) async {
-    Anxeb.Data data;
+  Future<SessionAuth> renew({anxeb.Scope scope}) async {
+    anxeb.Data data;
     if (application.configuration.isAuthSaved) {
-      final _auth = application.configuration?.auth;
-      api.token = _auth?.token;
+      final $auth = application.configuration?.auth;
+      api.token = $auth?.token;
       try {
         data = await application.api.post('/auth/renew', {});
       } catch (err) {
@@ -114,24 +113,24 @@ class Session {
   }
 
   Future _checkDirectories() async {
-    _cacheDirectory = await Anxeb.getTemporaryDirectory();
+    _cacheDirectory = await anxeb.getTemporaryDirectory();
   }
 
   Directory get cacheDirectory => _cacheDirectory;
 
-  bool get closed => _auth == null || _auth.member == null || api.token != null;
+  bool get closed => _auth == null || _auth.user == null || api.token != null;
 
   Application get application => _application;
 
-  MemberModel get user => _auth?.member;
+  UserModel get user => _auth?.user;
 
-  Anxeb.Api get api => _application.api;
+  anxeb.Api get api => _application.api;
 
   SessionAuth get auth => _auth;
 
   int get tick => _tick;
 
-  bool get authenticated => _auth?.member?.id != null;
+  bool get authenticated => _auth?.user?.id != null;
 
   List<AuthRoles> get roles => _auth?.roles ?? [];
 }

@@ -2,18 +2,18 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:anxeb_flutter/anxeb.dart' as Anxeb;
+import 'package:anxeb_flutter/anxeb.dart' as anxeb;
 import 'package:todo_app/middleware/error.dart';
 import 'package:todo_app/models/local/configuration.dart';
 import 'package:todo_app/middleware/service.dart';
 import 'package:todo_app/middleware/global.dart';
 import 'package:todo_app/middleware/session.dart';
 
-class Application extends Anxeb.Application {
+class Application extends anxeb.Application {
   final Duration _timeOut = const Duration(seconds: 120000);
   Session _session;
-  Anxeb.Api _api;
-  Anxeb.Overlay _overlay;
+  anxeb.Api _api;
+  anxeb.Overlay _overlay;
   ConfigurationModel _configuration;
   String _token;
   bool _loaded;
@@ -24,22 +24,22 @@ class Application extends Anxeb.Application {
   }
 
   @override
-  void onMessage(Anxeb.RemoteMessage message, Anxeb.MessageEventType event) {}
+  void onMessage(anxeb.RemoteMessage message, anxeb.MessageEventType event) {}
 
   @override
-  void onEvent(Anxeb.ApplicationEventType type,
+  void onEvent(anxeb.ApplicationEventType type,
       {String reference, String description, dynamic data}) {}
 
   @override
   void init() {
-    _api = Anxeb.Api(
+    _api = anxeb.Api(
       Global.settings.apiUrl,
       connectTimeout: _timeOut,
       receiveTimeout: _timeOut,
     );
 
-    final $appVersion = Anxeb.Device?.info?.package?.version;
-    final $buildNumber = Anxeb.Device?.info?.package?.buildNumber;
+    final $appVersion = anxeb.Device?.info?.package?.version;
+    final $buildNumber = anxeb.Device?.info?.package?.buildNumber;
     final $tz = DateTime.now().timeZoneOffset?.inMinutes;
     String $osType;
     String $osVersion;
@@ -55,9 +55,9 @@ class Application extends Anxeb.Application {
     }
 
     _api.interceptors.add(
-      Anxeb.InterceptorsWrapper(
-        onRequest: (Anxeb.RequestOptions options,
-            Anxeb.RequestInterceptorHandler handler) {
+      anxeb.InterceptorsWrapper(
+        onRequest: (anxeb.RequestOptions options,
+            anxeb.RequestInterceptorHandler handler) {
           options.headers['accept-language'] = _configuration?.language ?? 'es';
 
           if ($tz != null) {
@@ -79,27 +79,27 @@ class Application extends Anxeb.Application {
           return handler.next(options);
         },
         onResponse:
-            (Anxeb.Response e, Anxeb.ResponseInterceptorHandler handler) {
+            (anxeb.Response e, anxeb.ResponseInterceptorHandler handler) {
           return handler.next(e);
         },
-        onError: (Anxeb.DioError e, Anxeb.ErrorInterceptorHandler handler) {
+        onError: (anxeb.DioException e, anxeb.ErrorInterceptorHandler handler) {
           return handler.next(e);
         },
       ),
     );
-    _overlay = Anxeb.Overlay(navigationFill: settings.colors.navigation);
+    _overlay = anxeb.Overlay(navigationFill: settings.colors.navigation);
 
     _api.interceptors.add(
-      Anxeb.InterceptorsWrapper(
-        onRequest: (Anxeb.RequestOptions options,
-            Anxeb.RequestInterceptorHandler handler) {
+      anxeb.InterceptorsWrapper(
+        onRequest: (anxeb.RequestOptions options,
+            anxeb.RequestInterceptorHandler handler) {
           return handler.next(options);
         },
         onResponse:
-            (Anxeb.Response e, Anxeb.ResponseInterceptorHandler handler) {
+            (anxeb.Response e, anxeb.ResponseInterceptorHandler handler) {
           return handler.next(e);
         },
-        onError: (Anxeb.DioError e, Anxeb.ErrorInterceptorHandler handler) {
+        onError: (anxeb.DioException e, anxeb.ErrorInterceptorHandler handler) {
           return handler.next(e);
         },
       ),
@@ -121,19 +121,19 @@ class Application extends Anxeb.Application {
     _setFlutterErrorHandler();
   }
 
-  Future changeLanguage(Anxeb.Scope scope) async {
+  Future changeLanguage(anxeb.Scope scope) async {
     final options = localization.supportedLocales
-        .map((item) => Anxeb.DialogButton<Locale>(
+        .map((item) => anxeb.DialogButton<Locale>(
             Global.captions.languageLabels(item.languageCode), item))
         .toList();
 
-    options.add(Anxeb.DialogButton<Locale>(
-        Anxeb.translate('anxeb.common.cancel'), null,
+    options.add(anxeb.DialogButton<Locale>(
+        anxeb.translate('anxeb.common.cancel'), null,
         fillColor: settings.colors.accent));
 
     final Locale selectedLanguage = await scope.dialogs
         .options<Locale>(
-            Anxeb.translate('middleware.application.change_language_title'),
+            anxeb.translate('middleware.application.change_language_title'),
             //'Cambiar Idioma',
             options: options)
         .show();
@@ -143,16 +143,16 @@ class Application extends Anxeb.Application {
       configuration.language = selectedLanguage.languageCode;
       configuration.persist();
 
-      var currentLang = session.authenticated == true
-          ? (session.auth?.member != null
-              ? session.auth?.member?.info?.language
-              : session.auth?.member?.info?.language)
+      final currentLang = session.authenticated == true
+          ? (session.auth?.user != null
+              ? session.auth?.user?.info?.language
+              : session.auth?.user?.info?.language)
           : null;
 
       if (currentLang != null && currentLang != configuration.language) {
         api.post('/auth/language', {'code': configuration.language}).then(
             (value) {
-          session.auth.member.info.language = configuration.language;
+          session.auth.user.info.language = configuration.language;
         }).catchError((err) {
           //ignore
         });
@@ -166,6 +166,13 @@ class Application extends Anxeb.Application {
 
   Future load() async {
     await configuration.loadFromDisk('configuration');
+    final locale = localization.supportedLocales.firstWhere(
+        (element) => element.languageCode == configuration.language,
+        orElse: () => null);
+    if (locale != null) {
+      localization.changeLocale(locale);
+    }
+
     _loaded = true;
   }
 
@@ -192,8 +199,9 @@ class Application extends Anxeb.Application {
       options.environment = context['env'];
     });
     Sentry.configureScope((scope) {
-      context.entries
-          .forEach((entry) => scope.setContexts(entry.key, entry.value));
+      for (final entry in context.entries) {
+        scope.setContexts(entry.key, entry.value);
+      }
     });
   }
 
@@ -214,10 +222,10 @@ class Application extends Anxeb.Application {
   }
 
   @override
-  Anxeb.Overlay get overlay => _overlay;
+  anxeb.Overlay get overlay => _overlay;
 
   @override
-  Anxeb.Api get api => _api;
+  anxeb.Api get api => _api;
 
   Service get service => _service;
 

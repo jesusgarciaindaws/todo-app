@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:anxeb_flutter/anxeb.dart' as Anxeb;
+import 'package:anxeb_flutter/anxeb.dart' as anxeb;
 import 'package:todo_app/middleware/error.dart';
 import 'package:todo_app/middleware/application.dart';
 import 'package:todo_app/screens/landing/lobby.dart';
@@ -12,7 +12,7 @@ Future<void> main() async {
       await application.setup(locales: ['es', 'en']);
 
       runApp(
-        Anxeb.EntryScreen(
+        anxeb.EntryScreen(
           home: LobbyScreen(application: application),
           theme: ThemeData(
             primaryColor: application.settings.colors.primary,

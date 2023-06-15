@@ -1,6 +1,7 @@
 # To-do
 
 ![Platform](https://img.shields.io/badge/platform-Android%20%7C%20iOS-green.svg)
+[![Build Status](https://github.com/0aps/todo-app/workflows/CI/badge.svg)](https://github.com/0aps/todo-app/actions)
 
 A simple to-do application..
 

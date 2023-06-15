@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:anxeb_flutter/anxeb.dart' as Anxeb;
+import 'package:anxeb_flutter/anxeb.dart' as anxeb;
 import 'package:todo_app/middleware/global.dart';
 
 class SelectorHeaderBlock extends StatelessWidget {
-  final Anxeb.Scope scope;
+  final anxeb.Scope scope;
   final String name;
   final String reference;
   final String logoUrl;
@@ -13,7 +13,7 @@ class SelectorHeaderBlock extends StatelessWidget {
   final Icon failedIcon;
   final EdgeInsets margin;
 
-  SelectorHeaderBlock(
+  const SelectorHeaderBlock(
       {this.scope,
       this.name,
       this.reference,
@@ -79,7 +79,7 @@ class SelectorHeaderBlock extends StatelessWidget {
 
     return Container(
       margin: margin,
-      child: Anxeb.ImageButton(
+      child: anxeb.ImageButton(
         height: 60,
         width: 40,
         loadingColor:
@@ -113,7 +113,7 @@ class SelectorHeaderBlock extends StatelessWidget {
               padding:
                   const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
               child: failedIcon ??
-                  const Icon(Anxeb.FontAwesome5.building, size: 40),
+                  const Icon(anxeb.FontAwesome5.building, size: 40),
             ),
             Expanded(
               child: Container(
