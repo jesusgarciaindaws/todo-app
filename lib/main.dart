@@ -9,6 +9,7 @@ Future<void> main() async {
   runZonedGuarded<Future<void>>(
     () async {
       final application = Application();
+
       await application.setup(locales: ['es', 'en']);
 
       runApp(
