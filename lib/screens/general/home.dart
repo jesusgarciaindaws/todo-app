@@ -1,3 +1,4 @@
+import 'package:anxeb_flutter/middleware/api.dart';
 import 'package:flutter/material.dart';
 import 'package:anxeb_flutter/anxeb.dart' as anxeb;
 import 'package:todo_app/screens/landing/about.dart';
@@ -215,11 +216,21 @@ class _HomeState extends anxeb.ScreenView<HomeScreen, Application> {
       child: ListTasks(
         tasks: tasks,
         onSelectTask: _onSelectTask,
+        onDeleteTask: _onDeleteTask,
       ),
     );
   }
 
   void _onSelectTask(TaskModel task) async {}
+
+  void _onDeleteTask(TaskModel task) async {
+    try {
+      await scope.api.delete('/tasks/${task.id}');
+      _refresh();
+    } catch (err) {
+      scope.alerts.error(err).show();
+    }
+  }
 
   Future _onSearch(String text) async {
     if (text.isNotEmpty) {
