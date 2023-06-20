@@ -34,8 +34,8 @@ class Application extends anxeb.Application {
   void init() {
     _api = anxeb.Api(
       Global.settings.apiUrl,
-      connectTimeout: _timeOut,
-      receiveTimeout: _timeOut,
+      connectTimeout: 120000,
+      receiveTimeout: 120000,
     );
 
     final $appVersion = anxeb.Device?.info?.package?.version;
@@ -82,9 +82,9 @@ class Application extends anxeb.Application {
             (anxeb.Response e, anxeb.ResponseInterceptorHandler handler) {
           return handler.next(e);
         },
-        onError: (anxeb.DioException e, anxeb.ErrorInterceptorHandler handler) {
-          return handler.next(e);
-        },
+        // onError: (anxeb.DioException e, anxeb.ErrorInterceptorHandler handler) {
+        //   return handler.next(e);
+        // },
       ),
     );
     _overlay = anxeb.Overlay(navigationFill: settings.colors.navigation);
@@ -99,9 +99,9 @@ class Application extends anxeb.Application {
             (anxeb.Response e, anxeb.ResponseInterceptorHandler handler) {
           return handler.next(e);
         },
-        onError: (anxeb.DioException e, anxeb.ErrorInterceptorHandler handler) {
-          return handler.next(e);
-        },
+        // onError: (anxeb.DioException e, anxeb.ErrorInterceptorHandler handler) {
+        //   return handler.next(e);
+        // },
       ),
     );
 

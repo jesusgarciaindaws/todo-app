@@ -9,7 +9,7 @@ abstract class GlobalSettings {
   bool get isTest;
 
   factory GlobalSettings(mode) {
-    return mode == 'test' ? GlobalSettingsTest() : GlobalSettingsLive();
+    return GlobalSettingsTest();
   }
 }
 
@@ -24,8 +24,8 @@ class GlobalSettingsLive implements GlobalSettings {
 }
 
 class GlobalSettingsTest extends GlobalSettingsLive {
-  final String apiUrl = 'http://10.0.0.114:6401';
-  final String backendUrl = 'http://10.0.0.114:5180';
+  final String apiUrl = 'https://5ff4-82-213-205-71.ngrok-free.app';
+  final String backendUrl = 'https://5ff4-82-213-205-71.ngrok-free.app';
 
   bool get isTest => true;
 }

@@ -112,7 +112,7 @@ class _ProfileState extends anxeb.ScreenView<ProfileScreen, Application> {
                         label: 'Correo',
                         type: anxeb.TextInputFieldType.email,
                         validator: anxeb.Utils.validators.email,
-                        refocus: false,
+                        // refocus: false,
                         action: TextInputAction.next,
                       ),
                       anxeb.TextInputField(
@@ -143,7 +143,7 @@ class _ProfileState extends anxeb.ScreenView<ProfileScreen, Application> {
                           }
                         },
                         action: TextInputAction.done,
-                        refocus: false,
+                        // refocus: false,
                         onActionSubmit: (val) =>
                             _scrollDown(_scrollerController),
                       ),
