@@ -9,6 +9,7 @@ import 'package:todo_app/models/primary/task.dart';
 import 'package:todo_app/services/task.dart';
 import 'package:todo_app/widgets/list/tasks.dart';
 import 'package:todo_app/widgets/providers/scope.dart';
+import 'package:todo_app/forms/task.dart';
 
 class HomeScreen extends anxeb.ScreenWidget {
   HomeScreen({
@@ -136,7 +137,9 @@ class _HomeState extends anxeb.ScreenView<HomeScreen, Application> {
     return anxeb.SearchHeader(
         scope: scope,
         submitDelay: () => 150,
-        onBegin: () async {},
+        onBegin: () async {
+          _refresh();
+        },
         onClear: _onClear,
         onSearch: _onSearch,
         onCompleted: _onCompleteSearch);
@@ -221,7 +224,19 @@ class _HomeState extends anxeb.ScreenView<HomeScreen, Application> {
     );
   }
 
-  void _onSelectTask(TaskModel task) async {}
+  void _onSelectTask(TaskModel task) async {
+    task.using(scope).fetch(success: (helper) async {
+      final form = TaskForm(scope: scope, task: task);
+      await form.show();
+      Navigator.of(context).pop();
+
+      // if (result != null && result.$deleted == true) {
+      //   rasterize(() {
+      //     _tasks.remove(task);
+      //   });
+      // }
+    });
+  }
 
   void _onDeleteTask(TaskModel task) async {
     try {

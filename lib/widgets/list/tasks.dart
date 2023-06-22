@@ -19,11 +19,19 @@ class ListTasks extends StatelessWidget {
       itemCount: tasks.length,
       itemBuilder: (BuildContext context, int index) {
         final task = tasks[index];
-        return Card(
-          child: TaskTile(
-            task: task,
-            onSelectTask: onSelectTask,
-            onDeleteTask: onDeleteTask,
+        return Dismissible(
+          key: UniqueKey(),
+          onDismissed: (direction) {
+            onDeleteTask(task);
+          },
+          background: Container(
+            color: Colors.red,
+          ),
+          child: Card(
+            child: TaskTile(
+              task: task,
+              onSelectTask: onSelectTask,
+            ),
           ),
         );
       },
@@ -34,13 +42,11 @@ class ListTasks extends StatelessWidget {
 class TaskTile extends StatelessWidget {
   final TaskModel task;
   final Function(TaskModel) onSelectTask;
-  final Function(TaskModel) onDeleteTask;
 
   const TaskTile({
     Key key,
     this.task,
     this.onSelectTask,
-    this.onDeleteTask,
   }) : super(key: key);
 
   @override
@@ -48,11 +54,7 @@ class TaskTile extends StatelessWidget {
     return ListTile(
       title: Text(task.name),
       subtitle: Text(task.description),
-      trailing: IconButton(
-        onPressed: () => onDeleteTask(task),
-        icon: const Icon(Icons.delete),
-        color: Colors.pink,
-      ),
+      onTap: () => onSelectTask(task),
     );
   }
 }
