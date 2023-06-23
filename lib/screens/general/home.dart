@@ -166,27 +166,10 @@ class _HomeState extends anxeb.ScreenView<HomeScreen, Application> {
       actions: <anxeb.ActionIcon>[
         anxeb.ActionIcon(
           icon: () => Icons.refresh,
-          onPressed: () => _refreshPage(refreshSession: true),
+          onPressed: () => _refresh(),
         ),
       ],
     );
-  }
-
-  Future _refreshPage({bool refreshSession}) async {
-    if (refreshSession == true) {
-      await scope.busy();
-      try {
-        await session.refresh(scope: scope);
-        scope.retick();
-      } catch (err) {
-        scope.alerts.error(err).show();
-      } finally {
-        await scope.idle();
-      }
-    }
-    scope.forms['security'].update({
-      'email': session.user.login.email,
-    });
   }
 
   @override

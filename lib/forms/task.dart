@@ -11,8 +11,9 @@ class TaskForm extends anxeb.FormDialog<TaskModel, Application> {
       : super(
           scope,
           model: task,
-          dismissable: false,
+          dismissable: true,
           title: task == null ? 'Nueva Tarea' : 'Editar Tarea',
+          nueva: task == null,
           subtitle: task?.name,
           icon:
               task == null ? Icons.add : anxeb.CommunityMaterialIcons.file_edit,
@@ -74,7 +75,16 @@ class TaskForm extends anxeb.FormDialog<TaskModel, Application> {
   List<anxeb.FormButton> buttons(anxeb.FormScope<Application> scope) {
     return [
       anxeb.FormButton(
+        caption: 'Crear',
+        visible: !exists,
+        onTap: (anxeb.FormScope scope) => _create(scope),
+        fillColor: scope.application.settings.colors.success,
+        icon: Icons.create,
+        rightDivisor: true,
+      ),
+      anxeb.FormButton(
         caption: 'Guardar',
+        visible: exists,
         onTap: (anxeb.FormScope scope) => _persist(scope),
         icon: Icons.check,
       ),
@@ -90,14 +100,19 @@ class TaskForm extends anxeb.FormDialog<TaskModel, Application> {
     final form = scope.forms['task'];
     if (form.valid(autoFocus: true)) {
       await _task.using(scope.parent).update(success: (helper) async {
-        if (exists) {
-          scope.parent.alerts.success('tarea actualizada exitosamente').show();
-          scope.parent.rasterize(() {
-            model.update(_task);
-          });
-        } else {
-          scope.parent.alerts.success('tarea creada exitosamente').show();
-        }
+        scope.parent.alerts.success('tarea actualizada exitosamente').show();
+        scope.parent.rasterize(() {
+          model.update(_task);
+        });
+      });
+    }
+  }
+
+  Future _create(anxeb.FormScope scope) async {
+    final form = scope.forms['task'];
+    if (form.valid(autoFocus: true)) {
+      await _task.using(scope.parent).insert(success: (helper) async {
+        scope.parent.alerts.success('tarea creada exitosamente').show();
       });
     }
   }
