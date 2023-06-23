@@ -65,4 +65,32 @@ class TaskHelper extends anxeb.ModelHelper<TaskModel> {
     }
     return null;
   }
+
+  Future<TaskModel> insert(
+      {Future Function(TaskHelper) success,
+      Future Function(TaskHelper) next,
+      bool silent}) async {
+    if (silent != true) {
+      await scope.busy(text: 'Creando Tarea...');
+    }
+
+    try {
+      final data = await scope.api.post('/tasks', {'task': model.toObjects()});
+      scope.rasterize(() {
+        model.update(data);
+      });
+      await next?.call(this);
+      if (silent != true) {
+        await scope.idle();
+      }
+      return await success?.call(this) != false ? model : null;
+    } catch (err) {
+      scope.alerts.error(err).show();
+    } finally {
+      if (silent != true) {
+        await scope.idle();
+      }
+    }
+    return null;
+  }
 }

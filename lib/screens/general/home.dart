@@ -159,6 +159,48 @@ class _HomeState extends anxeb.ScreenView<HomeScreen, Application> {
     return _getContentList(tasks);
   }
 
+  @override
+  anxeb.ActionsFooter footer() {
+    return anxeb.ActionsFooter(
+      scope: scope,
+      actions: <anxeb.ActionIcon>[
+        anxeb.ActionIcon(
+          icon: () => Icons.refresh,
+          onPressed: () => _refreshPage(refreshSession: true),
+        ),
+      ],
+    );
+  }
+
+  Future _refreshPage({bool refreshSession}) async {
+    if (refreshSession == true) {
+      await scope.busy();
+      try {
+        await session.refresh(scope: scope);
+        scope.retick();
+      } catch (err) {
+        scope.alerts.error(err).show();
+      } finally {
+        await scope.idle();
+      }
+    }
+    scope.forms['security'].update({
+      'email': session.user.login.email,
+    });
+  }
+
+  @override
+  anxeb.ScreenAction action() {
+    return anxeb.ScreenAction(
+      scope: scope,
+      onPressed: () {
+        _onSelectTask(null);
+      },
+      isVisible: () => true,
+      icon: () => Icons.add,
+    );
+  }
+
   Future<List<TaskModel>> _getTasks() async {
     List<TaskModel> tasks = [];
     await scope.busy();
@@ -224,16 +266,16 @@ class _HomeState extends anxeb.ScreenView<HomeScreen, Application> {
     );
   }
 
-  void _onSelectTask(TaskModel task) async {
-    task.using(scope).fetch(success: (helper) async {
-      final form = TaskForm(scope: scope, task: task);
+  void _onSelectTask([TaskModel task]) async {
+    if (task != null) {
+      task.using(scope).fetch(success: (helper) async {
+        final form = TaskForm(scope: scope, task: task);
+        await form.show();
+      });
+    } else {
+      final form = TaskForm(scope: scope, task: null);
       await form.show();
-      // if (result != null && result.$deleted == true) {
-      //   rasterize(() {
-      //     _tasks.remove(task);
-      //   });
-      // }
-    });
+    }
   }
 
   void _onDeleteTask(TaskModel task) async {
