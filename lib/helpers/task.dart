@@ -46,7 +46,8 @@ class TaskHelper extends anxeb.ModelHelper<TaskModel> {
     }
 
     try {
-      final data = await scope.api.post('/tasks', {'task': model.toObjects()});
+      final data = await scope.api
+          .put('/tasks/${model.id}', {'task': model.toObjects()});
       scope.rasterize(() {
         model.update(data);
       });

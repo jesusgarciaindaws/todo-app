@@ -228,8 +228,6 @@ class _HomeState extends anxeb.ScreenView<HomeScreen, Application> {
     task.using(scope).fetch(success: (helper) async {
       final form = TaskForm(scope: scope, task: task);
       await form.show();
-      Navigator.of(context).pop();
-
       // if (result != null && result.$deleted == true) {
       //   rasterize(() {
       //     _tasks.remove(task);

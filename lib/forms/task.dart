@@ -11,7 +11,7 @@ class TaskForm extends anxeb.FormDialog<TaskModel, Application> {
       : super(
           scope,
           model: task,
-          dismissable: true,
+          dismissable: false,
           title: task == null ? 'Nueva Tarea' : 'Editar Tarea',
           subtitle: task?.name,
           icon:
@@ -46,7 +46,11 @@ class TaskForm extends anxeb.FormDialog<TaskModel, Application> {
                 autofocus: true,
               ),
             ),
-            anxeb.FormSpacer(),
+          ],
+        ),
+        anxeb.FormRowContainer(
+          scope: scope,
+          fields: [
             Expanded(
               child: anxeb.TextInputField(
                 scope: scope,
@@ -74,6 +78,11 @@ class TaskForm extends anxeb.FormDialog<TaskModel, Application> {
         onTap: (anxeb.FormScope scope) => _persist(scope),
         icon: Icons.check,
       ),
+      anxeb.FormButton(
+        caption: 'Cancelar',
+        onTap: (anxeb.Scope scope) async => true,
+        icon: Icons.close,
+      )
     ];
   }
 
