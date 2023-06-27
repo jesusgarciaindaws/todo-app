@@ -93,4 +93,32 @@ class TaskHelper extends anxeb.ModelHelper<TaskModel> {
     }
     return null;
   }
+
+  @override
+  Future<TaskModel> delete(
+      {Future Function(TaskHelper) success,
+      Future Function(TaskHelper) next,
+      bool silent}) async {
+    if (model.id != null) {
+      final result = await scope.dialogs
+          .confirm(
+              'Está apunto de eliminar el usuario:\n\n  👤 ${model.name}\n ¿Está seguro que quiere continuar?')
+          .show();
+      if (result == true) {
+        try {
+          await scope.busy();
+          await scope.api.delete('/tasks/${model.id}');
+          scope.rasterize(() {
+            model.$deleted = true;
+          });
+          return await success?.call(this) != false ? model : null;
+        } catch (err) {
+          scope.alerts.error(err).show();
+        } finally {
+          await scope.idle();
+        }
+      }
+    }
+    return null;
+  }
 }

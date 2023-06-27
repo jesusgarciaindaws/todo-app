@@ -23,8 +23,8 @@ class GlobalSettingsLive implements GlobalSettings {
 }
 
 class GlobalSettingsTest extends GlobalSettingsLive {
-  final String apiUrl = 'https://8e45-82-213-205-71.ngrok-free.app';
-  final String backendUrl = 'https://8e45-82-213-205-71.ngrok-free.app';
+  final String apiUrl = 'https://a426-82-213-205-71.ngrok-free.app';
+  final String backendUrl = 'https://a426-82-213-205-71.ngrok-free.app  ';
 
   bool get isTest => true;
 }

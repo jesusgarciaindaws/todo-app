@@ -1,4 +1,3 @@
-import 'package:anxeb_flutter/middleware/api.dart';
 import 'package:flutter/material.dart';
 import 'package:anxeb_flutter/anxeb.dart' as anxeb;
 import 'package:todo_app/screens/landing/about.dart';
@@ -259,12 +258,12 @@ class _HomeState extends anxeb.ScreenView<HomeScreen, Application> {
       final form = TaskForm(scope: scope, task: null);
       await form.show();
     }
+    _refresh();
   }
 
   void _onDeleteTask(TaskModel task) async {
     try {
-      await scope.api.delete('/tasks/${task.id}');
-      _refresh();
+      task.using(scope).delete();
     } catch (err) {
       scope.alerts.error(err).show();
     }
@@ -273,18 +272,23 @@ class _HomeState extends anxeb.ScreenView<HomeScreen, Application> {
   Future _onSearch(String text) async {
     if (text.isNotEmpty) {
       try {
-        final results = _tasks.where((e) => e.id.startsWith(text))?.toList();
+        final results = _tasks
+            .where((task) =>
+                task.name.contains(text) || task.description.contains(text))
+            ?.toList();
         rasterize(() {
           _tasksFiltered = results ?? [];
         });
       } catch (err) {
         scope.alerts.error(err).show();
       }
+    } else {
+      _onClear();
     }
   }
 
   Future _onCompleteSearch(String text) async {
-    _onClear();
+    _onSearch(text);
   }
 
   Future _onClear() async {
