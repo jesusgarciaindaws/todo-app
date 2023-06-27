@@ -32,7 +32,6 @@ class _HomeState extends anxeb.ScreenView<HomeScreen, Application> {
   @override
   void setup() {
     _taskService = TaskService(scope.api);
-
     application.overlay.navigationFill = application.settings.colors.navigation;
     application.overlay.extendBodyFullScreen = false;
     application.overlay.brightness = Brightness.dark;
@@ -253,6 +252,7 @@ class _HomeState extends anxeb.ScreenView<HomeScreen, Application> {
       task.using(scope).fetch(success: (helper) async {
         final form = TaskForm(scope: scope, task: task);
         await form.show();
+        _refresh();
       });
     } else {
       final form = TaskForm(scope: scope, task: null);
@@ -263,7 +263,8 @@ class _HomeState extends anxeb.ScreenView<HomeScreen, Application> {
 
   void _onDeleteTask(TaskModel task) async {
     try {
-      task.using(scope).delete();
+      await task.using(scope).delete();
+      _refresh();
     } catch (err) {
       scope.alerts.error(err).show();
     }
